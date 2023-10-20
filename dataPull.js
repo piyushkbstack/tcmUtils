@@ -6,6 +6,7 @@ let totalCaseCount = 0;
 let automatedCaseCount = 0;
 let nonAutomatableCaseCount = 0;
 let toBeAutomatedCaseCount = 0;
+let obseleteTestCaseCount = 0;
 
 async function callTcmApi(folderID, pageNumber = 0) {
   const url =
@@ -29,16 +30,23 @@ function computeTestCaseData(testCaseList) {
     switch (data) {
       case "not_automated":
         toBeAutomatedCaseCount += 1;
-        // console.log(`NOT AUTOMATED CASES --- NAME:::${testCase.name}----${data}`);
+        console.log(`NOT AUTOMATED CASES --- NAME:::${testCase.name}----${data}`);
         break;
       case "automated":
+        // console.log(`Automated Cases --- NAME:::${testCase.name}----${data}`);
         automatedCaseCount += 1;
         break;
       case "cannot_be_automated":
+        // console.log(`OTHER CASES --- NAME:::${testCase.name}----${data}`);
         nonAutomatableCaseCount += 1;
         break;
       case "automation_not_required":
+        // console.log(`OTHER CASES --- NAME:::${testCase.name}----${data}`);
         nonAutomatableCaseCount += 1;
+        break;
+      case "obsolete":
+        console.log(`OTHER CASES --- NAME:::${testCase.name}----${data}`);
+        obseleteTestCaseCount += 1;
         break;
       default:
         console.log(`OTHER CASES --- NAME:::${testCase.name}----${data}`);
@@ -48,6 +56,7 @@ function computeTestCaseData(testCaseList) {
 }
 
 function printAllRequiredData(product) {
+  totalCaseCount = totalCaseCount - obseleteTestCaseCount;
   const percentAutomation = ((automatedCaseCount / totalCaseCount) * 100).toFixed(2);
   const finalResult = {
     Product: product,
@@ -59,6 +68,12 @@ function printAllRequiredData(product) {
   }
 
   console.log(finalResult);
+
+  totalCaseCount = 0;
+  automatedCaseCount = 0;
+  nonAutomatableCaseCount = 0;
+  toBeAutomatedCaseCount = 0;
+  obseleteTestCaseCount = 0;
 }
 
 async function extractTestCaseData(product, productFolders) {
@@ -86,3 +101,5 @@ async function extractTestCaseData(product, productFolders) {
 }
 
 extractTestCaseData(constants.PRODUCT.INTEGRATION, constants.INTEGRATIONFOLDERS);
+// extractTestCaseData(constants.PRODUCT.SYSTEMS, constants.SYSTEMSFOLDER);
+// extractTestCaseData(constants.PRODUCT.ACCESSIBILITY, constants.A11YFOLDER);
