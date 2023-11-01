@@ -130,18 +130,19 @@ async function extractTestCaseData(productFolders) {
 
 function convertToCSVString(productName, caseDetails) {
   const csvString = [
+    "Id",
+    "Name",
+    "Description",
+    "Priority",
+    "AutomationStatus",
+    "Steps",
+    "ExpectedResult",
+    "Tags",
+    "AutomationMethod",
+  ].join("|");
+
+  const csvData = caseDetails.map((caseDetail) =>
     [
-      "Id"|
-        "Name"|
-        "Description"|
-        "Priority"|
-        "AutomationStatus"|
-        "Steps"|
-        "ExpectedResult"|
-        "Tags"|
-        "AutomationMethod",
-    ],
-    ...caseDetails.map((caseDetail) => [
       caseDetail.Id,
       caseDetail.Name,
       caseDetail.Description,
@@ -151,12 +152,12 @@ function convertToCSVString(productName, caseDetails) {
       caseDetail.ExpectedResult,
       caseDetail.Tags,
       caseDetail.AutomationMethod,
-    ]),
-  ]
-    .map((e) => e.join("|"))
-    .join("\n");
+    ].join("|")
+  );
 
-  fs.writeFile(`output_${productName}.csv`, csvString, (err) => {
+  const finalCsvString = [csvString, ...csvData].join("\n");
+
+  fs.writeFile(`output_${productName}.csv`, finalCsvString, (err) => {
     if (err) {
       console.error("Error writing to file:", err);
     } else {
