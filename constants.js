@@ -1,23 +1,24 @@
-exports.PROJECTID = '11697';
+exports.PROJECTID = "11697";
 
 exports.PRODUCT = {
-  INTEGRATION: 'Integration',
-  SYSTEMS: 'System',
-  ACCESSIBILITY: 'A11y',
-  APPACCESSIBILITY: 'AppA11y',
-}
+  INTEGRATION: "Integration",
+  SYSTEMS: "System",
+  ACCESSIBILITY: "A11y",
+  APPACCESSIBILITY: "AppA11y",
+};
 exports.INTEGRATIONFOLDERS = {
   JIRA_API: 40329,
   UAT_API: 40330,
   SLACK_BOT_API: 60723,
   SLACK_UI_LAYER_API: 945846,
+  SLACK_API: 1468592,
   SLACK_LINK_UNFURLING: 1065160,
   MSTEAM_API: 1198510,
   NODESDK_API: 40331,
   RAILSSDK_API: 40332,
   WEBHOOK_API: 40333,
   DASHBOARD_API: 40335,
-  PROD_SANITY_API:1392068,
+  PROD_SANITY_API: 1392068,
   LIST_INTEGRATION_UI: 1198514,
   CREATE_WIDGET_UI: 1331429,
   OAUTH_WIDGET_UI: 1331453,
@@ -29,7 +30,7 @@ exports.INTEGRATIONFOLDERS = {
 };
 
 exports.SYSTEMSFOLDER = {
-  SYSTEM: 40262
+  SYSTEM: 40262,
 };
 
 exports.A11YFOLDER = {
@@ -53,8 +54,31 @@ exports.A11YFOLDER = {
   AUTOMATED_TESTS_API: 1269817,
   AUTOMATED_TESTS_UI: 1269818,
   EXTENSION_DASHBOARD_INTEGRATION: 927204,
+};
+
+exports.ENTERPRISE = {
+  EIA: 40259,
+  USAGE_REPORTS: 855124,
+  USER_TAG: 856445,
+  OWNERSHIP_TRANSFER: 860597
+};
+
+exports.ONLINE_SALES = {
+  OS: 1215845
+};
+
+exports.WEB = {
+  WEB: 40263
 }
 
-exports.COOKIES = '<your cookie>';
+exports.PRODUCTNAME = {
+  SYSTEMS:"System",
+  Enterprise: "Enterprise",
+  OS:"Online Sales",
+  WEB: "Web",
+}
 
-exports.BASEURL = 'https://test-management.browserstack.com/api/v1/projects';
+
+exports.COOKIES = "<take cookies from browser>"
+
+exports.BASEURL = "https://test-management.browserstack.com/api/v1/projects";
