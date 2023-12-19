@@ -110,7 +110,7 @@ function printAllRequiredData(product) {
   obseleteTestCaseCount = 0;
 }
 
-async function extractTestCaseData(productFolders) {
+async function extractTestCaseData(productFolders, productName = '') {
   for (const key in productFolders) {
     if (productFolders.hasOwnProperty(key)) {
       const folderID = productFolders[key];
@@ -126,6 +126,8 @@ async function extractTestCaseData(productFolders) {
       }
     }
   }
+
+  printAllRequiredData(productName);
 }
 
 function convertToCSVString(productName, caseDetails) {
@@ -259,26 +261,28 @@ async function processTestCasesBatch(testCasesBatch) {
 }
 
 // Process test cases in batches
-(async () => {
-  await extractTestCaseData(constants.SYSTEMSFOLDER);
-  printAllRequiredData(constants.PRODUCT.SYSTEMS);
-  // Convert the testCasesId map into an array of key-value pairs
-  const testCasesArray = Array.from(testCasesId);
-  // Define the batch size
-  const batchSize = 200;
-  // Calculate the number of batches required
-  const numberOfBatches = Math.ceil(testCasesArray.length / batchSize);
-  for (let i = 0; i < numberOfBatches; i++) {
-    const startIdx = i * batchSize;
-    const endIdx = (i + 1) * batchSize;
-    const testCasesBatch = testCasesArray.slice(startIdx, endIdx);
-    await processTestCasesBatch(testCasesBatch);
-    console.log(`Processed batch ${i + 1}/${numberOfBatches}`);
-    await sleep(5);
-  }
-  convertToCSVString(constants.PRODUCT.SYSTEMS, testCaseDetails);
-})();
+// (async () => {
+//   await extractTestCaseData(constants.SYSTEMSFOLDER);
+//   printAllRequiredData(constants.PRODUCT.SYSTEMS);
+//   // Convert the testCasesId map into an array of key-value pairs
+//   const testCasesArray = Array.from(testCasesId);
+//   // Define the batch size
+//   const batchSize = 200;
+//   // Calculate the number of batches required
+//   const numberOfBatches = Math.ceil(testCasesArray.length / batchSize);
+//   for (let i = 0; i < numberOfBatches; i++) {
+//     const startIdx = i * batchSize;
+//     const endIdx = (i + 1) * batchSize;
+//     const testCasesBatch = testCasesArray.slice(startIdx, endIdx);
+//     await processTestCasesBatch(testCasesBatch);
+//     console.log(`Processed batch ${i + 1}/${numberOfBatches}`);
+//     await sleep(5);
+//   }
+//   convertToCSVString(constants.PRODUCT.SYSTEMS, testCaseDetails);
+// })();
+
 // extractTestCaseFields(constants.SYSTEMSFOLDER);
-// extractTestCaseData(constants.PRODUCT.INTEGRATION, constants.INTEGRATIONFOLDERS);
+extractTestCaseData(constants.A11YFOLDER, constants.PRODUCT.ACCESSIBILITY);
+// extractTestCaseData(constants.INTEGRATIONFOLDERS, constants.PRODUCT.INTEGRATION);
 // extractTestCaseData(constants.PRODUCT.SYSTEMS, constants.SYSTEMSFOLDER);
 // extractTestCaseData(constants.PRODUCT.ACCESSIBILITY, constants.A11YFOLDER);
